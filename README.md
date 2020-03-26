@@ -1,5 +1,7 @@
 # mxgraph-note
 
+![mxGraph关系网](/static/imgs/graph.)
+
 官方github demo学习笔记。
 
 ## Note
