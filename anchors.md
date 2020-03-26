@@ -5,7 +5,7 @@
 >
 > mxGraph的锚点demo。演示为所有形状定义固定结点。
 
-## knowledge
+## Knowledge Points
 
 ### 常见的 `terminal` 是什么？
 
@@ -56,7 +56,7 @@ graph.connectionHandler.createEdgeState = function (me) {
 
 参考 [一掘金文章](https://juejin.im/post/5d2eaa9e6fb9a07f04207cca#heading-8)中时发现了关于这段代码的解释，这样设置以后，拖拽线时的预览也是拆线的了，会与最后生成的线样式一致。
 
-## question
+## Questions
 
 ### demo中关于 `getAllConnectionConstraints` 的重写意义何在？
 
@@ -93,7 +93,7 @@ mxGraph.prototype.getAllConnectionConstraints = function(terminal, source) {
 
 指定画布是否允许创建新的链接。这个使用的场景不太明白，可能是某些场景需要禁止画布操作吧。
 
-## link
+## Links
 
 * [example/anchors.html](https://github.com/jgraph/mxgraph/blob/master/javascript/examples/anchors.html)
 * [mxGraph.getAllConnectionConstraints](http://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.getAllConnectionConstraints)
