@@ -1,2 +1,8 @@
 # mxgraph-note
-从demo中总结学习。https://jgraph.github.io/mxgraph/index.html
+
+官方github demo学习笔记。
+
+## Note
+
+## Link
+* [jgraph.github.io](https://jgraph.github.io/mxgraph/index.html)
