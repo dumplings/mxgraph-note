@@ -80,10 +80,10 @@ mxGraph.prototype.getAllConnectionConstraints = function (terminal, source) {
 
 ```javascript
 mxGraph.prototype.getAllConnectionConstraints = function(terminal, source) {
-	if (terminal != null && terminal.shape != null && terminal.shape.stencil != null) {
-		return terminal.shape.stencil.constraints;
-	}
-	return null;
+  if (terminal != null && terminal.shape != null && terminal.shape.stencil != null) {
+    return terminal.shape.stencil.constraints;
+  }
+  return null;
 };
 ```
 
