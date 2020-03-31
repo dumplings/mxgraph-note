@@ -74,6 +74,11 @@ graph.isCellFoldable = function(cell, collapse) {
 函数实现：
 
 ```javascript
+/**
+ * @params state: 被移动的cell的state
+ * @params dx: x轴移动位移
+ * @params dy: y轴移动位移
+ */
 function getRelativePosition(state, dx, dy) {
   if (state != null) {
     var model = graph.getModel();
@@ -84,18 +89,28 @@ function getRelativePosition(state, dx, dy) {
         var pstate = graph.view.getState(parent);
         if (pstate != null) {
           var scale = graph.view.scale;
+          /**
+           * state中的x/y应该是相对于根层的坐标值，而geometry中的x/y是相对于父容器的向量偏移。
+           */
           var x = state.x + dx;
           var y = state.y + dy;
           if (geo.offset != null) {
             x -= geo.offset.x * scale;
             y -= geo.offset.y * scale;
           }
+          /**
+           * 下面的x和y，算出的是占比，也是二维向量。
+           * 吐槽一下官方写的代码再定义一个x和y不行吗，一定要在原xy上改吗，这样代码很不明确。
+           */
           x = (x - pstate.x) / pstate.width;
           y = (y - pstate.y) / pstate.height;
+          // todo 这个判断条件的逻辑没有看懂，只是知道他的判断结果为点是在Y轴上还是X轴上
           if (Math.abs(y - 0.5) <= Math.abs((x - 0.5) / 2)) {
+            // 说明在Y轴上
             x = (x > 0.5) ? 1 : 0;
             y = Math.min(1, Math.max(0, y));
           } else {
+            // 说明在Y轴上
             x = Math.min(1, Math.max(0, x));
             y = (y > 0.5) ? 1 : 0;
           }
@@ -114,6 +129,33 @@ function getRelativePosition(state, dx, dy) {
 > 实现具有双精度坐标的二维向量。
 
 该函数得出的即子节点相对于父容器的二维向量形式的坐标值。
+
+// todo 待补充
+
+### graph的 `translateCell` 函数
+
+通过给定的cell进行坐标的转变，函数的调用发生在 `mxGraph.prototype.cellsMoved` 中，即当cell发生位移时，便会调用该函数。
+
+首先看一下改写后的源码：
+
+```javascript
+graph.translateCell = function (cell, dx, dy) {
+  var rel = getRelativePosition(this.view.getState(cell), dx * graph.view.scale, dy * graph.view.scale);
+  if (rel != null) {
+    var geo = this.model.getGeometry(cell);
+    if (geo != null && geo.relative) {
+      geo = geo.clone();
+      geo.x = rel.x;
+      geo.y = rel.y;
+      this.model.setGeometry(cell, geo);
+    }
+  } else {
+    mxGraph.prototype.translateCell.apply(this, arguments);
+  }
+};
+```
+
+首先通过getRe
 
 ## Questions
 
